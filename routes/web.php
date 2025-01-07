@@ -16,3 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::get('/login', function () {
+    return view('login');
+});
+
+Route::resource('pacientes', PacienteController::class);
+Route::resource('medicos', MedicoController::class);
+Route::resource('citas', CitaController::class);
+Route::resource('historiales', HistorialMedicoController::class);
+Route::resource('notificaciones', NotificacionController::class);
+Route::resource('estadisticas', EstadisticasController::class);
