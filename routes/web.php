@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
 
@@ -23,7 +23,11 @@ Route::get('/register', function () {
 
 Route::get('/login', function () {
     return view('login');
-});
+});*/
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');
 
 Route::resource('pacientes', PacienteController::class);
 Route::resource('medicos', MedicoController::class);
@@ -31,3 +35,5 @@ Route::resource('citas', CitaController::class);
 Route::resource('historiales', HistorialMedicoController::class);
 Route::resource('notificaciones', NotificacionController::class);
 Route::resource('estadisticas', EstadisticasController::class);
+
+
