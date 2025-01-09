@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Notificacion extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'fecha',
+        'hora',
+        'nombreMedico',
+        'nombrePaciente',
+    ];
 }

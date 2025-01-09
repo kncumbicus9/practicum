@@ -12,7 +12,9 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        return view('pacientes.index');
+        $pacientes = Paciente::all();
+        return view('pacientes.index', compact('pacientes'));
+        //return view('pacientes.index');
     }
 
     /**
@@ -20,7 +22,7 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('pacientes.create');
     }
 
     /**
@@ -28,7 +30,18 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'fechaNacimiento' => 'required|date',
+            'sexo' => 'required|string',
+            'email' => 'required|email|unique:pacientes,email',
+            'telefono' => 'nullable|string|max:20',
+        ]);
+    
+        Paciente::create($request->all());
+    
+        return redirect()->route('pacientes.index')->with('success', 'Paciente registrado exitosamente.');
     }
 
     /**
@@ -44,7 +57,7 @@ class PacienteController extends Controller
      */
     public function edit(Paciente $paciente)
     {
-        //
+        return view('pacientes.edit', compact('paciente'));
     }
 
     /**
@@ -52,7 +65,18 @@ class PacienteController extends Controller
      */
     public function update(Request $request, Paciente $paciente)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'fechaNacimiento' => 'required|date',
+            'sexo' => 'required|string',
+            'email' => 'required|email|unique:pacientes,email,' . $paciente->id,
+            'telefono' => 'nullable|string',
+        ]);
+    
+        $paciente->update($validated);
+    
+        return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado exitosamente.');
     }
 
     /**
@@ -60,6 +84,8 @@ class PacienteController extends Controller
      */
     public function destroy(Paciente $paciente)
     {
-        //
+        $paciente->delete();
+
+    return redirect()->route('pacientes.index')->with('success', 'Paciente eliminado exitosamente.');
     }
 }

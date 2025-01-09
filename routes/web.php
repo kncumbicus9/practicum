@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\MedicoController;
+use App\Http\Controllers\CitaController;
+use App\Http\Controllers\HistorialMedicoController;
+use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\EstadisticasController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +36,8 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::resource('pacientes', PacienteController::class);
+//Route::resource('pacientes', PacienteController::class);
+Route::resource('pacientes', App\Http\Controllers\PacienteController::class);
 Route::resource('medicos', MedicoController::class);
 Route::resource('citas', CitaController::class);
 Route::resource('historiales', HistorialMedicoController::class);

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class AltaGerencia extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nombre',
+        'cargo',
+        'email',
+    ];
 }
