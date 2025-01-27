@@ -10,10 +10,11 @@ class Cita extends Model
     use HasFactory;
 
     protected $fillable = [
-        'fecha',
-        'hora',
         'paciente_id',
         'medico_id',
+        'fecha',
+        'hora',
+        'estado',
     ];
 
     public function paciente()

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Medico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('medicos', function (Request $request) {
+    return Medico::where('especialidad', $request->especialidad)->get();
 });

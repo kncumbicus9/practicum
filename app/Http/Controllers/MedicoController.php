@@ -12,7 +12,8 @@ class MedicoController extends Controller
      */
     public function index()
     {
-        //
+        $medicos = Medico::all();
+        return view('medicos.index', compact('medicos'));
     }
 
     /**
@@ -20,7 +21,7 @@ class MedicoController extends Controller
      */
     public function create()
     {
-        //
+        return view('medicos.create');
     }
 
     /**
@@ -28,7 +29,17 @@ class MedicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'especialidad' => 'required|string|max:255',
+            'correo' => 'required|email|unique:medicos,correo', // Cambiado a 'correo'
+            'telefono' => 'nullable|string|max:20',
+        ]);
+    
+        Medico::create($request->all());
+    
+        return redirect()->route('medicos.index')->with('success', 'Médico registrado exitosamente.');
     }
 
     /**
@@ -36,7 +47,7 @@ class MedicoController extends Controller
      */
     public function show(Medico $medico)
     {
-        //
+        return view('medicos.show', compact('medico'));
     }
 
     /**
@@ -44,7 +55,7 @@ class MedicoController extends Controller
      */
     public function edit(Medico $medico)
     {
-        //
+        return view('medicos.edit', compact('medico'));
     }
 
     /**
@@ -52,7 +63,18 @@ class MedicoController extends Controller
      */
     public function update(Request $request, Medico $medico)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'especialidad' => 'required|string|max:255',
+            'correo' => 'required|email|unique:medicos,correo,' . $medico->id,
+            'telefono' => 'nullable|string|max:20',
+        ]);
+    
+        $medico->update($request->all());
+    
+        return redirect()->route('medicos.index')->with('success', 'Médico actualizado exitosamente.');
+    
     }
 
     /**
@@ -60,6 +82,15 @@ class MedicoController extends Controller
      */
     public function destroy(Medico $medico)
     {
-        //
+        $medico->delete();
+
+    return redirect()->route('medicos.index')->with('success', 'Médico eliminado exitosamente.');
+
+    }
+
+    public function getMedicosPorEspecialidad($especialidad)
+    {
+        $medicos = Medico::where('especialidad', $especialidad)->get();
+        return response()->json($medicos);
     }
 }

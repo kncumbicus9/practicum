@@ -17,4 +17,13 @@ class Paciente extends Model
         'email',
         'telefono',
     ];
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
+
 }
+
+
+

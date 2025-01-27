@@ -1,13 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\PacienteController;
-use App\Http\Controllers\MedicoController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\HistorialMedicoController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\EstadisticasController;
+use App\Http\Controllers\PacienteController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,28 +21,21 @@ use App\Http\Controllers\EstadisticasController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    // Dashboard principal
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+    // Rutas de recursos
+    Route::resource('pacientes', PacienteController::class);
+    Route::resource('medicos', MedicoController::class);
+    Route::resource('citas', CitaController::class);
+    Route::resource('historiales', HistorialMedicoController::class);
+    Route::resource('notificaciones', NotificacionController::class);
+    Route::resource('estadisticas', EstadisticasController::class);
 });
 
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});*/
-
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-//Route::resource('pacientes', PacienteController::class);
-Route::resource('pacientes', App\Http\Controllers\PacienteController::class);
-Route::resource('medicos', MedicoController::class);
-Route::resource('citas', CitaController::class);
-Route::resource('historiales', HistorialMedicoController::class);
-Route::resource('notificaciones', NotificacionController::class);
-Route::resource('estadisticas', EstadisticasController::class);
-
+// Rutas de autenticación
+require __DIR__ . '/auth.php';
 

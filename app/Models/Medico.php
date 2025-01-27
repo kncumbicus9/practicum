@@ -13,7 +13,16 @@ class Medico extends Model
         'nombre',
         'apellido',
         'especialidad',
-        'telefono',
         'correo',
+        'telefono',
     ];
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
+
+
 }
+
+
