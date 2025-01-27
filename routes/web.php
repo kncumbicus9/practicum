@@ -21,13 +21,13 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    // Dashboard principal
+    
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-    // Rutas de recursos
     Route::resource('pacientes', PacienteController::class);
     Route::resource('medicos', MedicoController::class);
     Route::resource('citas', CitaController::class);
@@ -36,6 +36,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('estadisticas', EstadisticasController::class);
 });
 
-// Rutas de autenticación
+
 require __DIR__ . '/auth.php';
 

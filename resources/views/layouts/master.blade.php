@@ -32,6 +32,30 @@
                         <a class="nav-link" href="{{ route('citas.index') }}">Citas</a>
                     </li>
                 </ul>
+
+                <!-- Botón de Login con opciones -->
+                <div class="dropdown ms-auto">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                        <!-- Cambiar de Usuario -->
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item">Cambiar de Usuario</button>
+                            </form>
+                        </li>
+                        <!-- Cerrar Sesión -->
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </nav>
