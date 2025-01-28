@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('estadisticas', EstadisticasController::class);
 });
 
+Route::put('/citas/{id}', [CitaController::class, 'update'])->name('citas.update');
+
 
 require __DIR__ . '/auth.php';
 

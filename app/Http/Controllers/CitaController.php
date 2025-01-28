@@ -89,7 +89,7 @@ class CitaController extends Controller
      */
     public function update(Request $request, Cita $cita)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'paciente_id' => 'required|exists:pacientes,id',
             'medico_id' => 'required|exists:medicos,id',
             'fecha' => 'required|date',
